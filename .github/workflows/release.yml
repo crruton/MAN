@@ -26,9 +26,9 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Собрать MAN-Setup.exe
+      - name: Собрать MAN-Setup.exe и проверить установку
         shell: pwsh
-        run: ./installer/windows/build.ps1
+        run: ./installer/windows/build.ps1 -Test
       - uses: actions/upload-artifact@v4
         with:
           name: exe

@@ -4,9 +4,10 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 jobs:
-  validate:
+  repository:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,6 +18,30 @@ jobs:
         run: python scripts/validate.py
       - name: Собрать архивы
         run: python scripts/package.py --out dist
-      - name: Проверить установку в тестовую папку
+      - name: Установить скилл из репозитория
         working-directory: cli
         run: python -m antislop.cli install --source .. --dir /tmp/man-test --force
+      - name: Проверить манифест установки
+        run: |
+          test -f /tmp/man-test/anti-neuroslop/SKILL.md
+          test -f /tmp/man-test/anti-neuroslop/references/katalog.md
+          python -c "import json;print(json.load(open('/tmp/man-test/anti-neuroslop/.man.json'))['version'])"
+      - name: Удалить скилл
+        working-directory: cli
+        run: |
+          python -m antislop.cli uninstall --dir /tmp/man-test
+          test ! -d /tmp/man-test/anti-neuroslop
+      - name: Проверить установку скриптом
+        run: |
+          sh scripts/install.sh --dir /tmp/man-sh --force
+          test -f /tmp/man-sh/anti-neuroslop/SKILL.md
+          sh scripts/install.sh --dir /tmp/man-sh --uninstall
+          test ! -d /tmp/man-sh/anti-neuroslop
+
+  windows-installer:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Собрать MAN-Setup.exe и проверить установку
+        shell: pwsh
+        run: ./installer/windows/build.ps1 -Test
