@@ -122,6 +122,16 @@ def check_json() -> None:
             fail(f"{rel}: невалидный JSON ({exc})")
 
 
+def check_markdown() -> None:
+    count = 0
+    for path in sorted(ROOT.rglob("*.md")):
+        if any(part in {".git", "dist", "node_modules"} for part in path.parts):
+            continue
+        check_links(path, path.read_text(encoding="utf-8"))
+        count += 1
+    print(f"  markdown: {count} файлов")
+
+
 def check_versions() -> None:
     meta = parse_frontmatter(SKILL_MD.read_text(encoding="utf-8")) if SKILL_MD.is_file() else {}
     expected = meta.get("version")
@@ -175,6 +185,7 @@ def main() -> int:
     check_references()
     check_katalog()
     check_json()
+    check_markdown()
     check_versions()
     check_placeholders()
 
