@@ -100,10 +100,11 @@ if ($Uninstall) {
   exit 0
 }
 
-$skillSrc = Join-Path $PSScriptRoot "..\skills\$Skill"
+$skillSrc = $null
+if ($PSScriptRoot) { $skillSrc = Join-Path $PSScriptRoot "..\skills\$Skill" }
 $tempDir = $null
 
-if (-not (Test-Path (Join-Path $skillSrc "SKILL.md"))) {
+if (-not $skillSrc -or -not (Test-Path (Join-Path $skillSrc "SKILL.md"))) {
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
   $tempDir = Join-Path ([System.IO.Path]::GetTempPath()) ("man-" + [System.Guid]::NewGuid().ToString("N"))
   New-Item -ItemType Directory -Path $tempDir | Out-Null

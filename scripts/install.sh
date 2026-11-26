@@ -137,7 +137,7 @@ fi
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 LOCAL_SKILL="$SCRIPT_DIR/../skills/$SKILL"
 TMP_DIR=""
-cleanup() { [ -n "$TMP_DIR" ] && rm -rf "$TMP_DIR"; }
+cleanup() { if [ -n "$TMP_DIR" ]; then rm -rf "$TMP_DIR"; fi; return 0; }
 trap cleanup EXIT INT TERM
 
 if [ -f "$LOCAL_SKILL/SKILL.md" ]; then
