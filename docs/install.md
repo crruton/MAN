@@ -71,24 +71,27 @@ sh install.sh --target claude
 ## Скрипт для Windows
 
 ```powershell
-irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1 -OutFile "$env:TEMP\man-install.ps1"
+& "$env:TEMP\man-install.ps1"
 ```
 
-Если PowerShell блокирует выполнение, запустите файлом:
+Скрипт скачивается в файл и запускается оттуда. Так Windows PowerShell 5.1 читает кириллицу в сообщениях без искажений; при выполнении через `iex` метка порядка байтов в начале файла ломает разбор. PowerShell 7 читает UTF-8 и так, но команда одинаково работает в обеих версиях.
+
+Если PowerShell блокирует выполнение, разрешите его для текущего процесса:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\install.ps1
+& "$env:TEMP\man-install.ps1"
 ```
 
 Параметры:
 
 ```powershell
-.\install.ps1 -Target all
-.\install.ps1 -Scope project
-.\install.ps1 -Dir C:\skills
-.\install.ps1 -Force
-.\install.ps1 -Uninstall
+& "$env:TEMP\man-install.ps1" -Target all
+& "$env:TEMP\man-install.ps1" -Scope project
+& "$env:TEMP\man-install.ps1" -Dir C:\skills
+& "$env:TEMP\man-install.ps1" -Force
+& "$env:TEMP\man-install.ps1" -Uninstall
 ```
 
 Скрипт скачивает архив, проверяет SHA256 через `Get-FileHash`, распаковывает через `tar` (входит в Windows 10 и 11) и копирует папку.
@@ -230,7 +233,8 @@ curl -fsSL https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.sh
 ```
 
 ```powershell
-& ([scriptblock]::Create((irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1))) -Uninstall
+irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1 -OutFile "$env:TEMP\man-install.ps1"
+& "$env:TEMP\man-install.ps1" -Uninstall
 ```
 
 Вручную:

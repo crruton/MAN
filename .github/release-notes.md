@@ -17,7 +17,7 @@ curl -fsSL https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.sh
 ```
 
 ```powershell
-irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1 -OutFile "$env:TEMP\man-install.ps1"; & "$env:TEMP\man-install.ps1"
 ```
 
 Другие способы: `MAN-Setup.exe`, архивы `man-skill.tar.gz` и `man-skill.zip`, `pipx`, `npx`, плагин Claude Code. Полная таблица — в [README](https://github.com/crruton/MAN#установка).

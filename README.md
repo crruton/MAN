@@ -28,7 +28,7 @@
 | Способ | Команда | Когда подходит |
 |---|---|---|
 | Скрипт, macOS и Linux | `curl -fsSL https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.sh \| sh` | быстрее всего, ничего не нужно кроме curl |
-| PowerShell, Windows | `irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1 \| iex` | то же для Windows |
+| PowerShell, Windows | `irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1 -OutFile "$env:TEMP\man-install.ps1"; & "$env:TEMP\man-install.ps1"` | то же для Windows |
 | Установщик `.exe` | скачать `MAN-Setup.exe` из [Releases](https://github.com/crruton/MAN/releases) и запустить | без терминала, работает офлайн |
 | `tar.gz` | `curl -L .../man-skill.tar.gz \| tar -xz -C ~/.claude/skills` | офлайн, CI, свой путь |
 | `zip` | распаковать `man-skill.zip` в папку скиллов | офлайн, Windows |
@@ -48,7 +48,7 @@ curl -fsSL https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.sh
 Windows PowerShell:
 
 ```powershell
-irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1 -OutFile "$env:TEMP\man-install.ps1"; & "$env:TEMP\man-install.ps1"
 ```
 
 Скрипт сам находит установленных агентов и ставит скилл в личную папку. Если агентов несколько, ставит во все найденные. Если ни одного — в `~/.claude/skills`.
@@ -72,7 +72,16 @@ irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1 | iex
 ... | sh -s -- --uninstall
 ```
 
-У PowerShell те же параметры: `-Target all`, `-Scope project`, `-Dir`, `-Version`, `-Uninstall`.
+В PowerShell скрипт скачивается в файл и запускается оттуда: так Windows PowerShell 5.1 правильно читает кириллицу в сообщениях.
+
+```powershell
+irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1 -OutFile "$env:TEMP\man-install.ps1"
+& "$env:TEMP\man-install.ps1" -Target all
+& "$env:TEMP\man-install.ps1" -Scope project
+& "$env:TEMP\man-install.ps1" -Dir C:\skills
+& "$env:TEMP\man-install.ps1" -Force
+& "$env:TEMP\man-install.ps1" -Uninstall
+```
 
 ### MAN-Setup.exe
 
@@ -179,7 +188,7 @@ curl -fsSL https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.sh
 ```
 
 ```powershell
-& ([scriptblock]::Create((irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1))) -Uninstall
+irm https://raw.githubusercontent.com/crruton/MAN/main/scripts/install.ps1 -OutFile "$env:TEMP\man-install.ps1"; & "$env:TEMP\man-install.ps1" -Uninstall
 ```
 
 ## Как пользоваться
