@@ -1,0 +1,22 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Проверить структуру и версии
+        run: python scripts/validate.py
+      - name: Собрать архивы
+        run: python scripts/package.py --out dist
+      - name: Проверить установку в тестовую папку
+        working-directory: cli
+        run: python -m antislop.cli install --source .. --dir /tmp/man-test --force

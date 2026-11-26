@@ -1,0 +1,60 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  archives:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python scripts/validate.py
+      - run: python scripts/package.py --out dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: archives
+          path: dist/*
+
+  windows-exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Собрать MAN-Setup.exe
+        shell: pwsh
+        run: ./installer/windows/build.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: exe
+          path: dist/MAN-Setup.exe
+
+  publish:
+    needs: [archives, windows-exe]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/download-artifact@v4
+        with:
+          name: archives
+          path: release
+      - uses: actions/download-artifact@v4
+        with:
+          name: exe
+          path: release
+      - name: Пересобрать контрольные суммы с exe
+        run: python scripts/package.py --out release --exe release/MAN-Setup.exe
+      - name: Опубликовать релиз
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/*
+          generate_release_notes: true
+          fail_on_unmatched_files: true
