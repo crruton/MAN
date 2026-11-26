@@ -95,7 +95,8 @@ def main() -> int:
         if not exe.is_file():
             raise SystemExit(f"нет файла {exe}")
         target = out_dir / "MAN-Setup.exe"
-        shutil.copy2(exe, target)
+        if exe != target.resolve():
+            shutil.copy2(exe, target)
         artifacts.append(target)
 
     lines = [f"{sha256(path)}  {path.name}" for path in sorted(artifacts)]
