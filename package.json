@@ -1,0 +1,35 @@
+{
+  "name": "man-anti-neuroslop",
+  "version": "1.0.0",
+  "description": "MAN — My Anti-Neuroslop: install the anti-neuroslop skill for Claude Code, OpenCode and Codex",
+  "license": "MIT",
+  "author": "Andrei Nosov",
+  "homepage": "https://github.com/crruton/MAN",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crruton/MAN.git"
+  },
+  "bugs": {
+    "url": "https://github.com/crruton/MAN/issues"
+  },
+  "keywords": [
+    "ai-slop",
+    "russian",
+    "writing",
+    "editing",
+    "claude",
+    "skills"
+  ],
+  "bin": {
+    "antislop": "npm/bin/antislop.js"
+  },
+  "files": [
+    "npm/bin",
+    "skills",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

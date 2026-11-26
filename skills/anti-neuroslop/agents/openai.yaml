@@ -1,0 +1,4 @@
+interface:
+  display_name: "MAN — Anti-Neuroslop"
+  short_description: "Находит и переписывает нейрослоп в русских текстах"
+  default_prompt: "Use $anti-neuroslop to проверить русский текст на следы генерации и переписать его по-человечески."

@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "man-anti-neuroslop"
+version = "1.0.0"
+description = "MAN — My Anti-Neuroslop: installer and doctor for the anti-neuroslop skill"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Andrei Nosov" }]
+keywords = ["ai-slop", "russian", "writing", "editing", "claude", "skills"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "Topic :: Text Processing :: Linguistic",
+]
+
+[project.urls]
+Homepage = "https://github.com/crruton/MAN"
+Repository = "https://github.com/crruton/MAN"
+Issues = "https://github.com/crruton/MAN/issues"
+
+[project.scripts]
+antislop = "antislop.cli:main"
+
+[tool.setuptools]
+packages = ["antislop"]

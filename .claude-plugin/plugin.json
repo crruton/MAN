@@ -1,0 +1,13 @@
+{
+  "name": "man",
+  "description": "MAN — My Anti-Neuroslop. Находит и переписывает нейрослоп в русских текстах.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Andrei Nosov",
+    "url": "https://github.com/crruton"
+  },
+  "homepage": "https://github.com/crruton/MAN",
+  "repository": "https://github.com/crruton/MAN",
+  "license": "MIT",
+  "keywords": ["russian", "writing", "editing", "ai-slop"]
+}
