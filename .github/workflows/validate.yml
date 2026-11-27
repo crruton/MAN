@@ -16,6 +16,8 @@ jobs:
           python-version: "3.12"
       - name: Проверить структуру и версии
         run: python scripts/validate.py
+      - name: Тесты установщика
+        run: python -m unittest discover -s tests -v
       - name: Собрать архивы
         run: python scripts/package.py --out dist
       - name: Установить скилл из репозитория

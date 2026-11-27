@@ -23,6 +23,7 @@
 
 ```bash
 python scripts/validate.py
+python -m unittest discover -s tests -v
 ```
 
 Скрипт проверяет frontmatter, длину `SKILL.md`, битые ссылки, нумерацию каталога, JSON и совпадение версий в пяти файлах.
