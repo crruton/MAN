@@ -256,4 +256,4 @@ GitHub Actions проверит репозиторий, соберёт архи�
 
 Код и тексты — [MIT](LICENSE) © 2026 Andrei Nosov.
 
-Каталог маркеров опирается на описания признаков ИИ-текста в Википедии ([AI slop](https://en.wikipedia.org/wiki/AI_slop), [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), [Признаки сгенерированности текста](https://ru.wikipedia.org/wiki/Википедия:Признаки_сгенерированности_текста), CC BY-SA 4.0) и на структуру [blader/humanizer](https://github.com/blader/humanizer) (MIT). Формулировки и русские примеры написаны заново.
+Каталог маркеров опирается на описания признаков ИИ-текста в Википедии ([AI slop](https://en.wikipedia.org/wiki/AI_slop), [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), [Признаки сгенерированности текста](https://ru.wikipedia.org/wiki/Википедия:Признаки_сгенерированности_текста), CC BY-SA 4.0) (MIT). Формулировки и русские примеры написаны заново.
